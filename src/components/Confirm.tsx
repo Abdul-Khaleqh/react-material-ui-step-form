@@ -1,85 +1,46 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import Box from '@mui/material/Box'
-import List from '@mui/material/List'
-import ListItem from '@mui/material/ListItem'
-import ListItemText from '@mui/material/ListItemText'
-import Divider from '@mui/material/Divider'
+import styled from '@emotion/styled'
 import Button from '@mui/material/Button'
-import { AppContext } from '../Context'
+import DropzoneBox from './DropzoneBox'
+
+const Container = styled(Box)`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+`
+const DragandDrop = styled(Box)`
+  border: 1px dashed black;
+  background-color: #cacfcf;
+  padding: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .css-sghohy-MuiButtonBase-root-MuiButton-root {
+    background-color: #076e28;
+  }
+`
 
 export default function Confirm() {
-  const { formValues, handleBack, handleNext } = useContext(AppContext)
-  const { firstName, lastName, email, gender, date, city, phone } = formValues
-
-  const handleSubmit = () => {
-    // Remove unwanted properties from formValue object
-    let form = {}
-
-    Object.keys(formValues).map((name) => {
-      form = {
-        ...form,
-        [name]: formValues[name].value
-      }
-      return form
-    })
-    // Do whatever with the values
-    console.log(form)
-    // Show last component or success message
-    handleNext()
-  }
-
   return (
     <>
-      <List disablePadding>
-        <ListItem>
-          <ListItemText primary='First Name' secondary={firstName.value || 'Not Provided'} />
-        </ListItem>
+      <Container>
+        <h1>Space Photos</h1>
+        <p>Add atleast 4 Photos that represent the information you have included in the description</p>
+        <DragandDrop>
+          <h2>Drag and Drop files here</h2>
+          <DropzoneBox />
 
-        <Divider />
-
-        <ListItem>
-          <ListItemText primary='Last Name' secondary={lastName.value || 'Not Provided'} />
-        </ListItem>
-
-        <Divider />
-
-        <ListItem>
-          <ListItemText primary='Email Address' secondary={email.value || 'Not Provided'} />
-        </ListItem>
-
-        <Divider />
-
-        <ListItem>
-          <ListItemText primary='Gender' secondary={gender.value || 'Not Provided'} />
-        </ListItem>
-
-        <Divider />
-
-        <ListItem>
-          <ListItemText primary='Date of birth' secondary={date.value || 'Not Provided'} />
-        </ListItem>
-
-        <Divider />
-
-        <ListItem>
-          <ListItemText primary='City' secondary={city.value || 'Not Provided'} />
-        </ListItem>
-
-        <Divider />
-
-        <ListItem>
-          <ListItemText primary='phone' secondary={phone.value || 'Not Provided'} />
-        </ListItem>
-      </List>
-
-      <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 3 }}>
-        <Button sx={{ mr: 1 }} onClick={handleBack}>
-          Back
-        </Button>
-        <Button variant='contained' color='success' onClick={handleSubmit}>
-          Confirm & Continue
-        </Button>
-      </Box>
+          <p>or</p>
+          <Button variant='contained' component='label'>
+            Upload File
+            <input type='file' hidden />
+          </Button>
+        </DragandDrop>
+      </Container>
     </>
   )
 }

@@ -11,14 +11,16 @@ import Success from './Success'
 import { AppContext } from '../Context'
 
 // Step titles
-const labels = ['First Step', 'Second Step', 'Confirmation']
+const labels = ['First Step', 'Second Step', 'Confirmation', 'photos']
 const handleSteps = (step: number) => {
   switch (step) {
     case 0:
-      return <FirstStep />
+      return <Confirm />
     case 1:
       return <SecondStep />
     case 2:
+      return <FirstStep />
+    case 3:
       return <Confirm />
     default:
       throw new Error('Unknown step')
